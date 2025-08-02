@@ -41,6 +41,17 @@ References:
 
 ## 2 RunPod Setup (Phase 1)
 
+### SSH vs API Usage
+
+• **API** (preferred for agents) – All tooling (Cursor, CLI, Slack bot) interacts via the Controller REST API. Human developers rarely need direct RunPod API calls.
+• **SSH** – Only used for one-off maintenance (e.g., inspecting logs, manual updates inside the container). Add your public key once; daily operations rely on HTTP.
+
+### Template Recommendation _(added 2025-08-02)_
+
+Start with the community **"ollama template"** (simple, CUDA-ready, minimal footprint). Alternative templates like "Local Lab Ollama API and OpenWebUI" add a GUI you don’t need for automated agents.
+
+After confidence grows, you can switch the controller to spawn serverless Flex endpoints or a custom Dockerfile.
+
 1. **Create Pod Template**
    • GPU : RTX 4090 (24 GB)
    • Template : "Ollama" or PyTorch 2.8 base
@@ -104,7 +115,7 @@ References:
 ## 6 Roadmap Checklist
 
 ✅ Phase 0 — Planning artefacts committed
-⬜ Phase 1 — Controller skeleton & first pod spin-up
+⬜ Phase 1 — Controller skeleton & first pod spin-up  (helper script patched; pod test pending)
 ⬜ Phase 2 — Agent fork & integration test
 ⬜ Phase 3 — Metrics dashboard & cost gate
 ⬜ Phase 4 — n8n orchestration
