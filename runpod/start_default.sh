@@ -21,7 +21,7 @@ DISK="80"
 # 1. Ensure runpodctl CLI is installed
 if ! command -v runpodctl &> /dev/null; then
   echo "[runpod] installing runpodctl via pipx"; echo
-  pipx install runpodctl
+  pipx install runpod
 fi
 
 # 2. Configure API key (will create ~/.config/runpod/config.yaml)
