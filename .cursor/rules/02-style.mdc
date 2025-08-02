@@ -1,0 +1,17 @@
+# Code & Documentation Style
+
+• Use explicit, typed interfaces everywhere. Prefer **Pydantic v2** models; fallback to `dataclasses` if there is zero validation demand.
+
+• Each new file must start with a 1-to-3-line docstring that answers _what_ & _why_.
+
+• Auto-generated code must include the banner:
+
+```python
+# AUTO-GENERATED – DO NOT EDIT BY HAND
+```
+
+• Formatters & linters: **Black**, **Ruff**, and **pre-commit** hooks are mandatory. Max line length: 100 chars.
+
+• Mermaid diagrams: wrap all labels in double quotes and break lines with `<br/>` (Cursor rendering requirement).
+
+• Prefer pure functions. Side effects (I/O, network, DB) live in `infra/` or `services/` modules.

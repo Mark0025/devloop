@@ -1,0 +1,9 @@
+# Guardrails
+
+• **Secrets**: Never commit API keys, passwords, or non-public IP addresses. If a secret is detected in a diff, abort the commit and open an alert.
+
+• **Cost Control**: If projected monthly GPU spend exceeds **$20**, pause all background agents and ping the Slack webhook defined in `.env` (`SLACK_ALERT_URL`).
+
+• **Compute Tier Escalation**: Any move to a GPU instance costing > **$0.30/hr** requires explicit human approval.
+
+• **License Compliance**: The agent must not introduce GPL-licensed code unless the repository is already GPL or the user has expressly approved.

@@ -1,0 +1,33 @@
+# Agent Decision Loop
+
+## Goal Hierarchy
+
+1. Keep the main branch green (all CI tests pass).
+2. Reduce token cost & inference latency for future runs.
+3. Update or create documentation for every file it edits.
+
+## Pull-Request Policy
+
+• The agent may open a PR automatically when:
+– Total diff ≤ **300** lines of code, **and**
+– All tests pass in CI.
+
+• Larger diffs or failing tests require a PR flagged `needs-human-review`.
+
+• Direct pushes to `main` are **forbidden**.
+
+## GitHub Comments
+
+For every event the agent handles, it must add a PR/commit comment containing a **Reasoning** section that summarises:
+
+```
+Why this change?
+Key steps taken
+Follow-up actions (if any)
+```
+
+## Safety Checks
+
+• Before merging, agent runs `ruff --fix --exit-zero` and `pytest -q`.
+
+• If projected monthly GPU spend > $20, agent halts self-merge and pings Slack webhook (see 99-safety.mdc).

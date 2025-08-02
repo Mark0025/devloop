@@ -1,0 +1,42 @@
+# RunPod Endpoint – Notes (draft)
+
+## Account checklist
+
+- [x ] GitHub linked (verified Mark0025)
+- [x ] Payment method / credits ($25 showing)
+- [ ] SSH key added for pod access
+
+## Desired default pod
+
+| Parameter     | Value                                     |
+| ------------- | ----------------------------------------- |
+| GPU           | RTX 4090 (24 GB)                          |
+| Template      | "Ollama" official or PyTorch 2.8 base     |
+| Disk          | 80 GB (increase later if model >13B)      |
+| Ports         | 11434 (Ollama) exposed                    |
+| Pricing       | On-demand $0.69/hr (switch to Flex later) |
+| Auto-shutdown | 10 min idle via cron or API               |
+
+> NOTE: Flex workers need HTTP+SSE keep-alive; stick to on-demand for Phase 1.
+
+## API endpoints
+
+- **Pods API** `https://api.runpod.ai/v2/pod`
+  - `POST /launch` → returns `podId`
+  - `POST /status` → check `RUNNING`
+  - `POST /stop` → halt pod
+
+Store `RUNPOD_API_KEY` in 1Password & `.env` (git-ignored).
+
+## Initial test commands (after pod is running)
+
+```bash
+curl http://<pod-ip>:11434/api/tags                # list models
+curl http://<pod-ip>:11434/api/generate \
+     -d '{"model":"mistral:7b-instruct-q5_K_M","prompt":"2+2="}'
+```
+
+## TODO
+
+- Decide between Ollama vs FastAPI agent container (compare startup times).
+- Script idle timer (Python or bash) → add to Phase 1 tasks.

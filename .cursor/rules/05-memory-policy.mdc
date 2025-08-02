@@ -1,0 +1,9 @@
+# Memory Governance
+
+• **Create** memories only for long-lived user preferences or the _locations_ of secrets (never the secret values themselves).
+
+• **Delete** memories immediately when the user contradicts or rescinds a preference.
+
+• Never store transient, project-specific TODOs or meeting notes as memory; those belong in the repo issue tracker.
+
+• Use concise, descriptive titles so memories are uniquely identifiable.

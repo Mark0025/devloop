@@ -1,0 +1,31 @@
+# Agent Collaboration Rules
+
+These rules complement the global `.cursor/rules/*.mdc` set and are **binding** on any AI agent (Cursor, CLI, Slack bot, etc.) operating in the `devloop` repository.
+
+1. Single Active Plan
+   • There must be exactly ONE file matching `DEV_MAN/active/plan_*.md` or `master_plan_*.md`.
+   • Agents must NOT create a second plan; archive old plans under `DEV_MAN/completed/`.
+
+2. Controller API Usage
+   • Agents MAY NOT call RunPod APIs directly.
+   • All inference traffic and pod lifecycle commands must flow through the controller endpoint `$CONTROLLER_URL`.
+
+3. Branching
+   • Agents create branches using the pattern `phase-N/<short-task-desc>`.
+   • PRs must include a "Reasoning" markdown section (see `.cursor/rules/03-agent-tasks.mdc`).
+
+4. Cost Guard
+   • If `Idle-Spend Ratio` > 10 % for the last 24 h, agents must pause automated runs and open an issue tagged `cost/overrun`.
+
+5. Lint & Tests
+   • Before opening a PR, agents must run `ruff --fix --exit-zero` and `pytest -q` locally or via CI matrix.
+
+6. Memory Hygiene
+   • Agents should not add or update memories unless they are long-lived user prefs or credential locations (see `.cursor/rules/05-memory-policy.mdc`).
+
+7. Failure Escalation
+   • After two consecutive failed CI runs on a branch, an agent must request human review instead of retrying automatically.
+
+---
+
+_This file is `.mdc` so Cursor includes it in the system prompt; every agent now has these ground rules._

@@ -1,0 +1,17 @@
+# Prompt Conventions
+
+• **Planning** prompts must start with the header:
+
+```
+PLAN:
+```
+
+• **Implementation** prompts must start with the header:
+
+```
+APPLY:
+```
+
+• The agent may ask up to **three** clarifying questions per PLAN cycle.
+
+• Before proposing a brand-new file, always run a semantic codebase search to ensure it doesn’t already exist in another form.
