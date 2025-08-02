@@ -18,21 +18,21 @@ POD_NAME="devloop-ollama"
 PORT="11434"
 DISK="80"
 
-# 1. Ensure runpodctl CLI is installed
-if ! command -v runpodctl &> /dev/null; then
-  echo "[runpod] installing runpodctl via pipx"; echo
+# 1. Ensure runpod CLI is installed
+if ! command -v runpod &> /dev/null; then
+  echo "[runpod] installing runpod via pipx"; echo
   pipx install runpod
 fi
 
 # 2. Configure API key (will create ~/.config/runpod/config.yaml)
-runpodctl configure --api-key "${RUNPOD_API_KEY:?RUNPOD_API_KEY not set}" --yes
+runpod config set api_key "${RUNPOD_API_KEY:?RUNPOD_API_KEY not set}"
 
 # 3. Launch pod if not already running
-if runpodctl pod status --name "$POD_NAME" &>/dev/null; then
+if runpod pod status --name "$POD_NAME" &>/dev/null; then
   echo "[runpod] pod '$POD_NAME' already exists, skipping launch"
 else
   echo "[runpod] launching pod '$POD_NAME' from template $TEMPLATE_ID"
-  runpodctl pod launch \
+  runpod pod launch \
     --template-id "$TEMPLATE_ID" \
     --gpu-count 1 \
     --disk-size "$DISK" \
@@ -43,7 +43,7 @@ fi
 # 4. Poll until RUNNING and obtain IP
 ATTEMPTS=60
 while (( ATTEMPTS-- > 0 )); do
-  STATUS_JSON=$(runpodctl pod status --name "$POD_NAME" --json)
+  STATUS_JSON=$(runpod pod status --name "$POD_NAME" --json)
   STATE=$(echo "$STATUS_JSON" | jq -r '.status')
   IP=$(echo "$STATUS_JSON"   | jq -r '.endpoints[0].ip // empty')
   if [[ "$STATE" == "RUNNING" && -n "$IP" ]]; then
@@ -69,5 +69,5 @@ cat <<EOF
 Success! The Ollama endpoint is live at http://$IP:$PORT
 
 When you are done testing, stop the pod:
-  runpodctl pod stop --name $POD_NAME
+  runpod pod stop --name $POD_NAME
 EOF
