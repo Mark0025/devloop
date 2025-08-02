@@ -34,7 +34,7 @@ Install & login:
 
 ```bash
 pipx install runpod  # isolates CLI
-runpod configure --api-key $RUNPOD_API_KEY
+runpod config $RUNPOD_API_KEY
 ```
 
 Launch the default pod:
@@ -60,14 +60,17 @@ runpod pod stop --name devloop-ollama
 ## Architecture Overview
 
 Local Dev Machine → RunPod API
+
 - `runpod` CLI (installed via `pipx`) launches & controls pods.
 - `.env` stores `RUNPOD_CLI_API_KEY` only; project Python deps unaffected.
 
 Controller API (FastAPI, hosted on VPS or home server)
+
 - Receives `/infer` calls from agents.
 - Calls RunPod REST (or CLI) to start pod if needed, forwards prompt.
 
 RunPod Pod (Ollama template)
+
 - Model server on port 11434.
 - Auto-shutdown handled by controller idle timer.
 

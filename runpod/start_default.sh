@@ -25,7 +25,7 @@ if ! command -v runpod &> /dev/null; then
 fi
 
 # 2. Configure API key (will create ~/.config/runpod/config.yaml)
-runpod config set api_key "${RUNPOD_API_KEY:?RUNPOD_API_KEY not set}"
+runpod config "${RUNPOD_API_KEY:?RUNPOD_API_KEY not set}"
 
 # 3. Launch pod if not already running
 if runpod pod status --name "$POD_NAME" &>/dev/null; then
