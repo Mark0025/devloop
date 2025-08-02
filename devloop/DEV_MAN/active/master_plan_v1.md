@@ -115,7 +115,7 @@ After confidence grows, you can switch the controller to spawn serverless Flex e
 ## 6 Roadmap Checklist
 
 ✅ Phase 0 — Planning artefacts committed
-⬜ Phase 1 — Controller skeleton & first pod spin-up  (helper script patched; pod test pending)
+⏳ Phase 1 — Controller skeleton & first pod spin-up (test pod running: jizx51pkriengc)
 ⬜ Phase 2 — Agent fork & integration test
 ⬜ Phase 3 — Metrics dashboard & cost gate
 ⬜ Phase 4 — n8n orchestration
