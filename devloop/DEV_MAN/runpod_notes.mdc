@@ -33,7 +33,7 @@ Store `RUNPOD_API_KEY` in 1Password & `.env` (git-ignored).
 Install & login:
 
 ```bash
-uv pip install runpodctl
+pipx install runpodctl  # isolates CLI
 runpodctl configure --api-key $RUNPOD_API_KEY
 ```
 

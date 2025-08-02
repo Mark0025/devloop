@@ -5,7 +5,7 @@ This folder holds shell snippets or small scripts that interact with RunPod via 
 ## 1. Install & Authenticate
 
 ```bash
-uv pip install runpodctl
+pipx install runpodctl  # isolates the CLI from project Python deps
 runpodctl configure --api-key $RUNPOD_API_KEY
 ```
 
