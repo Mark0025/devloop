@@ -8,14 +8,14 @@
 
 ## Desired default pod
 
-| Parameter     | Value                                     |
-| ------------- | ----------------------------------------- |
-| GPU           | RTX 4090 (24 GB)                          |
+| Parameter     | Value                                               |
+| ------------- | --------------------------------------------------- |
+| GPU           | RTX 4090 (24 GB)                                    |
 | Template      | "Ollama" community template (ID: **ollama/ollama**) |
-| Disk          | 80 GB (increase later if model >13B)      |
-| Ports         | 11434 (Ollama) exposed                    |
-| Pricing       | On-demand $0.69/hr (switch to Flex later) |
-| Auto-shutdown | 10 min idle via cron or API               |
+| Disk          | 80 GB (increase later if model >13B)                |
+| Ports         | 11434 (Ollama) exposed                              |
+| Pricing       | On-demand $0.69/hr (switch to Flex later)           |
+| Auto-shutdown | 10 min idle via cron or API                         |
 
 > NOTE: Flex workers need HTTP+SSE keep-alive; stick to on-demand for Phase 1.
 
@@ -31,22 +31,28 @@ Store `RUNPOD_API_KEY` in 1Password & `.env` (git-ignored).
 ## CLI quick-start (using runpodctl)
 
 Install & login:
+
 ```bash
-pip install runpodctl
+uv pip install runpodctl
 runpodctl configure --api-key $RUNPOD_API_KEY
 ```
 
 Launch the default pod:
+
 ```bash
 runpodctl pod launch --template-id ollama/ollama \
     --gpu-count 1 --disk-size 80 --name devloop-ollama \
     --ports "11434:http"
 ```
+
 Check status & get IP:
+
 ```bash
 runpodctl pod status --name devloop-ollama
 ```
+
 Stop the pod:
+
 ```bash
 runpodctl pod stop --name devloop-ollama
 ```
